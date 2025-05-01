@@ -29,12 +29,19 @@ namespace HiddenDesktopViewer
 
                         using (var nto1 = new NtObject(hObj, ObjectInformationClass.ObjectTypeInformation, typeof(OBJECT_TYPE_INFORMATION)))
                         {
+#if true
+                            if(nto1.Buffer == IntPtr.Zero)
+                            {
+                                continue;
+                            }
+#else
                             var oti = ObjectTypeInformation_FromBuffer(nto1.Buffer);
 
                             if (oti.Name.ToString() != "Desktop")
                             {
                                 continue;
                             }
+#endif
                         }
 
                         if (hItem.GrantedAccess == 0x0012019f
@@ -145,6 +152,7 @@ namespace HiddenDesktopViewer
 
                 while (true)
                 {
+#if false
                     FileType ret_FileType = (FileType)GetFileType(hObj);
 
                     if (ret_FileType == FileType.FILE_TYPE_PIPE)
@@ -153,11 +161,25 @@ namespace HiddenDesktopViewer
                         return IntPtr.Zero;
                     }
                     else
+#endif
                     {
                         var ret = NtQueryObject(hObj, infoClass, buf, size, out retsize);
 
                         if (NT_SUCCESS(ret))
                         {
+#if true
+                            if (infoClass == ObjectInformationClass.ObjectTypeInformation)
+                            {
+                                OBJECT_TYPE_INFORMATION oti = ObjectTypeInformation_FromBuffer(buf);
+                                string handleType = oti.Name.ToString();
+
+                                if (handleType != "Desktop")
+                                {
+                                    Marshal.FreeCoTaskMem(buf);
+                                    return IntPtr.Zero;
+                                }
+                            }
+#endif
                             return buf;
                         }
                         if (ret == NT_STATUS.INFO_LENGTH_MISMATCH || ret == NT_STATUS.BUFFER_OVERFLOW)
