@@ -1,5 +1,14 @@
 # HiddenDesktopViewer
 
+## Patched Contents （修正内容）
+
+ - In my environment, the Win32 GetFiletype() function sometimes froze while retrieving the Process List, so I made some minor changes to the logic.
+ - 自分の環境では Process List の取得中に Win32 GetFileType() 関数がフリーズする場合があったためロジックを若干修正しました。
+ - Upgraded the .NET Framework version from 4.5 to 4.8.
+ - .NET Framework のバージョンを 4.5 から 4.8 に上げました。
+
+## Original Document （元の文書）
+
 This tool reveals hidden desktops and investigate processes/threads utilizing hidden desktops.   
 このツールは隠されたデスクトップを明らかにし、隠されたデスクトップを利用するプロセスやスレッドを調査するツールです。　
 
@@ -24,11 +33,11 @@ This tool is useful for the research such as the following threats.
 
 - The compiled binary is below.   
 - コンパイル済バイナリは以下です。   
-https://github.com/AgigoNoTana/HiddenDesktopViewer/blob/master/HiddenDesktopViewer_Bin.zip
+https://github.com/yossiepon/HiddenDesktopViewer/blob/master/HiddenDesktopViewer_Bin.zip
 
 
-*HiddenDesktopViewer requires Microsoft . NET Framework 4.5 or higher.  ( 4.0 can be used, but an error occurs during working.)<br>
-※「HiddenDesktopViewer」の正常動作にはMicrosoft . NET Framework 4.5以上が必要です。(4.0で起動はできますが動作中にエラーが出ます)
+*HiddenDesktopViewer requires Microsoft . NET Framework 4.8 or higher.
+※「HiddenDesktopViewer」の正常動作にはMicrosoft . NET Framework 4.8以上が必要です。
 
 　　　
 ![default](https://user-images.githubusercontent.com/43233361/45525567-867a1200-b80e-11e8-8575-d1976ec31896.jpg)
